@@ -29,6 +29,11 @@ app.post("/controller", (req: express.Request, res: express.Response) => {
   res.send({ result: "ok" });
 });
 
+app.post("/basket", (req: express.Request, res: express.Response) => {
+  send(req.body, MessageModule.BAKSET);
+  res.send({ result: "ok" });
+});
+
 server.listen(port, () => {
   console.log(`bff running at ${port}`);
 });
