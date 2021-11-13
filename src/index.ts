@@ -1,6 +1,7 @@
 import * as http from "http";
 import express from "express";
 import WebSocket from "ws";
+import cors from "cors";
 import { Message, MessageModule, MessageRequest } from "./types";
 
 const port = 4000;
@@ -8,6 +9,7 @@ const port = 4000;
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 const server = http.createServer(app);
 
@@ -25,6 +27,7 @@ const send = (msg: MessageRequest, module: MessageModule) => {
 };
 
 app.post("/controller", (req: express.Request, res: express.Response) => {
+  console.log(req.body);
   send(req.body, MessageModule.BAKSET);
   res.send({ result: "ok" });
 });
