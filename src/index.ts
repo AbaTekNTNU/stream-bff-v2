@@ -2,6 +2,7 @@ import * as http from "http";
 import express from "express";
 import WebSocket from "ws";
 import cors from "cors";
+import fetch from "node-fetch";
 import { Message, MessageModule, MessageRequest } from "./types";
 
 const port = 4000;
@@ -35,6 +36,13 @@ app.post("/controller", (req: express.Request, res: express.Response) => {
 app.post("/basket", (req: express.Request, res: express.Response) => {
   send(req.body, MessageModule.BAKSET);
   res.send({ result: "ok" });
+});
+
+app.get("/team", async (req: express.Request, res: express.Response) => {
+  const result = await fetch("http://localhost:8000/state").then((r) =>
+    r.json()
+  );
+  res.send(result);
 });
 
 server.listen(port, () => {
